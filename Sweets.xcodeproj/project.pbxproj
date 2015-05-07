@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		49D06B561AFB35B100B967B3 /* Sweets.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D06B551AFB35B100B967B3 /* Sweets.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49D06B5C1AFB35B100B967B3 /* Sweets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D06B501AFB35B100B967B3 /* Sweets.framework */; };
-		49D06B631AFB35B100B967B3 /* SweetsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D06B621AFB35B100B967B3 /* SweetsTests.swift */; };
+		49D06B6D1AFB35E600B967B3 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D06B6C1AFB35E600B967B3 /* TableView.swift */; };
+		49D06B6E1AFB35E600B967B3 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D06B6C1AFB35E600B967B3 /* TableView.swift */; };
+		49D06B701AFB360200B967B3 /* TableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D06B6F1AFB360200B967B3 /* TableViewTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,7 +30,8 @@
 		49D06B551AFB35B100B967B3 /* Sweets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sweets.h; sourceTree = "<group>"; };
 		49D06B5B1AFB35B100B967B3 /* SweetsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SweetsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49D06B611AFB35B100B967B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49D06B621AFB35B100B967B3 /* SweetsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SweetsTests.swift; sourceTree = "<group>"; };
+		49D06B6C1AFB35E600B967B3 /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		49D06B6F1AFB360200B967B3 /* TableViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				49D06B551AFB35B100B967B3 /* Sweets.h */,
+				49D06B6C1AFB35E600B967B3 /* TableView.swift */,
 				49D06B531AFB35B100B967B3 /* Supporting Files */,
 			);
 			path = Sweets;
@@ -88,7 +92,7 @@
 		49D06B5F1AFB35B100B967B3 /* SweetsTests */ = {
 			isa = PBXGroup;
 			children = (
-				49D06B621AFB35B100B967B3 /* SweetsTests.swift */,
+				49D06B6F1AFB360200B967B3 /* TableViewTests.swift */,
 				49D06B601AFB35B100B967B3 /* Supporting Files */,
 			);
 			path = SweetsTests;
@@ -209,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D06B6D1AFB35E600B967B3 /* TableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +221,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49D06B631AFB35B100B967B3 /* SweetsTests.swift in Sources */,
+				49D06B6E1AFB35E600B967B3 /* TableView.swift in Sources */,
+				49D06B701AFB360200B967B3 /* TableViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +329,7 @@
 		49D06B671AFB35B100B967B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -332,12 +339,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		49D06B681AFB35B100B967B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
