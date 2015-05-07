@@ -11,9 +11,9 @@ import XCTest
 
 class TableViewTests: XCTestCase, UITableViewDataSource {
     
-    let tableView = TableView()
-    
     class Cell: UITableViewCell {}
+    
+    let tableView = UITableView()
     
     // MARK: - Setup
     

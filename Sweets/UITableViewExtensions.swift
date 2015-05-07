@@ -8,18 +8,12 @@
 
 import UIKit
 
-public class TableView: UITableView {
+extension UITableView {
 
     // MARK: - Registration
     
     public func registerClassForCellReuse(cellClass: UITableViewCell.Type) {
         registerClass(cellClass, forCellReuseIdentifier: NSStringFromClass(cellClass))
-    }
-    
-    override public func registerClass(cellClass: AnyClass, forCellReuseIdentifier identifier: String) {
-        precondition(NSStringFromClass(cellClass) == identifier, "Identifier must be equal to the cell class name")
-        
-        super.registerClass(cellClass, forCellReuseIdentifier: identifier)
     }
     
     // MARK: - Dequeuing
