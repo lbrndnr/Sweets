@@ -21,16 +21,23 @@ class TableViewTests: XCTestCase, UITableViewDataSource {
         super.setUp()
         
         tableView.dataSource = self
-        tableView.registerClassForCellReuse(UITableViewCell.self)
+        tableView.registerReusableCellClass(UITableViewCell.self)
     }
     
     // MARK: - Tests
 
     func testCellRegistration() {
-        tableView.registerClassForCellReuse(Cell.self)
+        tableView.registerReusableCellClass(Cell.self)
         let cell = tableView.dequeueReusableCell(Cell.self, indexPath: NSIndexPath(forRow: 0, inSection: 0))
         
         XCTAssertNotNil(cell, "The cell couldn't be dequeued")
+    }
+    
+    func testHeaderFooterViewRegistration() {
+        tableView.registerReusableHeaderFooterViewClass(UITableViewHeaderFooterView.self)
+        let view = tableView.dequeueReusableHeaderFooterView(UITableViewHeaderFooterView.self)
+        
+        XCTAssertNotNil(view, "The cell couldn't be dequeued")
     }
     
     // MARK: - UITableViewDataSource
