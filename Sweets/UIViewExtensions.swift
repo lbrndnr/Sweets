@@ -10,7 +10,7 @@ import Foundation
 
 extension UIView {
     
-    class func animate(#duration: NSTimeInterval, delay: NSTimeInterval = 0, springDamping: CGFloat?, initialSpringVelocity springVelocity: CGFloat?, options: UIViewAnimationOptions = UIViewAnimationOptions(0), timingFunction: CAMediaTimingFunction? = nil, animations: () -> Void, completion: ((Bool) -> Void)? = nil) {
+    public class func animate(#duration: NSTimeInterval, delay: NSTimeInterval = 0, springDamping: CGFloat?, initialSpringVelocity springVelocity: CGFloat?, options: UIViewAnimationOptions = UIViewAnimationOptions(0), timingFunction: CAMediaTimingFunction? = nil, animations: () -> Void, completion: ((Bool) -> Void)? = nil) {
         CATransaction.begin()
         if let timingFunction = timingFunction {
             CATransaction.setAnimationTimingFunction(timingFunction)
