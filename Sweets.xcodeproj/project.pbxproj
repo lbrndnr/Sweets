@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49C8CC831AFFDB550099E22C /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C8CC821AFFDB550099E22C /* UIViewExtensions.swift */; };
+		49C8CC841AFFDB550099E22C /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C8CC821AFFDB550099E22C /* UIViewExtensions.swift */; };
+		49C8CC861AFFDDA70099E22C /* CAMediaTimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C8CC851AFFDDA70099E22C /* CAMediaTimingFunction.swift */; };
+		49C8CC871AFFDDA70099E22C /* CAMediaTimingFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C8CC851AFFDDA70099E22C /* CAMediaTimingFunction.swift */; };
 		49D06B561AFB35B100B967B3 /* Sweets.h in Headers */ = {isa = PBXBuildFile; fileRef = 49D06B551AFB35B100B967B3 /* Sweets.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49D06B5C1AFB35B100B967B3 /* Sweets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D06B501AFB35B100B967B3 /* Sweets.framework */; };
 		49D06B6D1AFB35E600B967B3 /* UITableViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D06B6C1AFB35E600B967B3 /* UITableViewExtensions.swift */; };
@@ -25,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49C8CC821AFFDB550099E22C /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		49C8CC851AFFDDA70099E22C /* CAMediaTimingFunction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAMediaTimingFunction.swift; sourceTree = "<group>"; };
 		49D06B501AFB35B100B967B3 /* Sweets.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Sweets.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49D06B541AFB35B100B967B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49D06B551AFB35B100B967B3 /* Sweets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sweets.h; sourceTree = "<group>"; };
@@ -74,8 +80,9 @@
 		49D06B521AFB35B100B967B3 /* Sweets */ = {
 			isa = PBXGroup;
 			children = (
-				49D06B551AFB35B100B967B3 /* Sweets.h */,
 				49D06B6C1AFB35E600B967B3 /* UITableViewExtensions.swift */,
+				49C8CC821AFFDB550099E22C /* UIViewExtensions.swift */,
+				49C8CC851AFFDDA70099E22C /* CAMediaTimingFunction.swift */,
 				49D06B531AFB35B100B967B3 /* Supporting Files */,
 			);
 			path = Sweets;
@@ -84,6 +91,7 @@
 		49D06B531AFB35B100B967B3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				49D06B551AFB35B100B967B3 /* Sweets.h */,
 				49D06B541AFB35B100B967B3 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -213,7 +221,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49C8CC831AFFDB550099E22C /* UIViewExtensions.swift in Sources */,
 				49D06B6D1AFB35E600B967B3 /* UITableViewExtensions.swift in Sources */,
+				49C8CC861AFFDDA70099E22C /* CAMediaTimingFunction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +231,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49C8CC871AFFDDA70099E22C /* CAMediaTimingFunction.swift in Sources */,
 				49D06B6E1AFB35E600B967B3 /* UITableViewExtensions.swift in Sources */,
+				49C8CC841AFFDB550099E22C /* UIViewExtensions.swift in Sources */,
 				49D06B701AFB360200B967B3 /* UITableViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
