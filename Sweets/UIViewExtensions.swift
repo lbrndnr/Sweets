@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Laurin Brandner. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension UIView {
     

@@ -6,40 +6,42 @@
 //  Copyright (c) 2015 Laurin Brandner. All rights reserved.
 //
 
+import Sweets
 import UIKit
-import XCTest
+import Quick
+import Nimble
 
-class TableViewTests: XCTestCase, UITableViewDataSource {
+class TableViewSpec: QuickSpec, UITableViewDataSource {
     
     class Cell: UITableViewCell {}
     
-    let tableView = UITableView()
-    
-    // MARK: - Setup
-    
-    override func setUp() {
-        super.setUp()
+    override func spec() {
         
-        tableView.dataSource = self
-        tableView.registerReusableCellClass(UITableViewCell.self)
+        describe("registering") {
+            var tableView: UITableView!
+        
+            beforeEach {
+                tableView = UITableView()
+                tableView.dataSource = self
+            }
+            
+            it("registers a cell") {
+                tableView.registerReusableCellClass(Cell.self)
+                let cell = tableView.dequeueReusableCell(Cell.self)
+                
+                expect(cell).to(beTruthy())
+            }
+            
+            it("registers a header") {
+                tableView.registerReusableHeaderFooterViewClass(UITableViewHeaderFooterView.self)
+                let view = tableView.dequeueReusableHeaderFooterView(UITableViewHeaderFooterView.self)
+                
+                expect(view).to(beTruthy())
+            }
+        }
+        
     }
-    
-    // MARK: - Tests
 
-    func testCellRegistration() {
-        tableView.registerReusableCellClass(Cell.self)
-        let cell = tableView.dequeueReusableCell(Cell.self, indexPath: NSIndexPath(forRow: 0, inSection: 0))
-        
-        XCTAssertNotNil(cell, "The cell couldn't be dequeued")
-    }
-    
-    func testHeaderFooterViewRegistration() {
-        tableView.registerReusableHeaderFooterViewClass(UITableViewHeaderFooterView.self)
-        let view = tableView.dequeueReusableHeaderFooterView(UITableViewHeaderFooterView.self)
-        
-        XCTAssertNotNil(view, "The cell couldn't be dequeued")
-    }
-    
     // MARK: - UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -51,7 +53,7 @@ class TableViewTests: XCTestCase, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return self.tableView.dequeueReusableCell(UITableViewCell.self, indexPath: NSIndexPath(forRow: 0, inSection: 0))
+        return tableView.dequeueReusableCell(UITableViewCell.self, indexPath: NSIndexPath(forRow: 0, inSection: 0))
     }
 
 }

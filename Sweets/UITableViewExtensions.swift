@@ -32,7 +32,7 @@ extension UITableView {
         return cell ?? T(style: .Default, reuseIdentifier: NSStringFromClass(type))
     }
     
-    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(type: T.Type) -> T? {
+    public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(type: T.Type) -> T? {
         return dequeueReusableHeaderFooterViewWithIdentifier(NSStringFromClass(type)) as? T
     }
     
