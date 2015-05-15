@@ -9,6 +9,20 @@
 import UIKit
 
 extension UITableView {
+    
+    // MARK: - Information
+    
+    public func cellForRowAtIndexPath<T: UITableViewCell>(indexPath: NSIndexPath) -> T? {
+        return cellForRowAtIndexPath(indexPath) as? T
+    }
+    
+    public func headerViewForSection<T: UITableViewHeaderFooterView>(section: Int) -> T? {
+        return headerViewForSection(section) as? T
+    }
+
+    public func footerViewForSection<T: UITableViewHeaderFooterView>(section: Int) -> T? {
+        return footerViewForSection(section) as? T
+    }
 
     // MARK: - Registration
     
