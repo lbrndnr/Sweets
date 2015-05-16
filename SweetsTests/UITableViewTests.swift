@@ -11,63 +11,85 @@ import UIKit
 import Quick
 import Nimble
 
-class TableViewSpec: QuickSpec, UITableViewDataSource {
+class TableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
     
-    class Cell: UITableViewCell {}
-    class OtherCell: UITableViewCell {}
+    class RegisteredCell: UITableViewCell {}
+    class Cell: UITableViewCell {
     
+        func coolPrint() {
+            println("cool")
+        }
+        
+    }
+    
+    class RegisteredHeaderFooterView: UITableViewHeaderFooterView {}
     class HeaderFooterView: UITableViewHeaderFooterView {}
-    class OtherHeaderFooterView: UITableViewHeaderFooterView {}
     
     
     override func spec() {
+        var superview: UIView!
         var tableView: UITableView!
+        var count = 1
         
         beforeEach {
             tableView = UITableView()
             tableView.dataSource = self
+            tableView.delegate = self
+            tableView.registerReusableCellClass(RegisteredCell.self)
+            tableView.registerReusableHeaderFooterViewClass(RegisteredHeaderFooterView.self)
+            
+            superview = UIView(frame: UIScreen.mainScreen().bounds)
+            superview.addSubview(tableView)
+            tableView.frame = superview.bounds
+            tableView.reloadData()
         }
         
-        describe("registering") {
-            it("registers a cell") {
-                tableView.registerReusableCellClass(Cell.self)
-                let cell = tableView.dequeueReusableCell(Cell.self)
-                
+        describe("dequeuing") {
+            it("dequeues a cell") {
+                let cell = tableView.dequeueReusableCell(RegisteredCell.self)
                 expect(cell).to(beTruthy())
             }
             
-            it("registers a header") {
-                tableView.registerReusableHeaderFooterViewClass(HeaderFooterView.self)
-                let view = tableView.dequeueReusableHeaderFooterView(HeaderFooterView.self)
-                
+            it("dequeues no cell") {
+                let cell = tableView.dequeueReusableCell(Cell.self)
+                expect(cell).to(beFalsy())
+            }
+            
+            it("dequeues a header") {
+                let view = tableView.dequeueReusableHeaderFooterView(RegisteredHeaderFooterView.self)
                 expect(view).to(beTruthy())
+            }
+            
+            it("dequeues no header") {
+                let view = tableView.dequeueReusableHeaderFooterView(HeaderFooterView.self)
+                expect(view).to(beFalsy())
             }
         }
         
         describe("info retrieval") {
             it("retrieves cell") {
-                let cell: Cell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+                let cell: RegisteredCell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
                 expect(cell).to(beTruthy())
             }
             
             it("retrieves no cell") {
-                let cell: OtherCell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+                let cell: Cell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
                 expect(cell).to(beFalsy())
             }
             
             it("retrieves header footer view") {
-                let headerView: HeaderFooterView? = tableView.headerViewForSection(0)
+                let headerView: RegisteredHeaderFooterView? = tableView.headerViewForSection(0)
                 expect(headerView).to(beTruthy())
                 
-                let footerView: HeaderFooterView? = tableView.footerViewForSection(0)
+                let footerView: RegisteredHeaderFooterView? = tableView.footerViewForSection(0)
                 expect(footerView).to(beTruthy())
             }
             
             it("retrieves no header footer view") {
-                let headerView: OtherHeaderFooterView? = tableView.headerViewForSection(0)
+                let headerView: HeaderFooterView? = tableView.headerViewForSection(0)
                 expect(headerView).to(beFalsy())
                 
-                let footerView: OtherHeaderFooterView? = tableView.footerViewForSection(0)
+                let footerView: HeaderFooterView? = tableView.footerViewForSection(0)
                 expect(footerView).to(beFalsy())
             }
         }
@@ -84,7 +106,23 @@ class TableViewSpec: QuickSpec, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(Cell.self, indexPath: NSIndexPath(forRow: 0, inSection: 0))
+        return tableView.dequeueReusableCell(RegisteredCell.self, indexPath: NSIndexPath(forRow: 0, inSection: 0))
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 200
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return tableView.dequeueReusableHeaderFooterView(RegisteredHeaderFooterView.self)
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 200
+    }
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return tableView.dequeueReusableHeaderFooterView(RegisteredHeaderFooterView.self)
     }
 
 }

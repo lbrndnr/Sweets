@@ -12,15 +12,17 @@ extension UITableView {
     
     // MARK: - Information
     
-    public func cellForRowAtIndexPath<T: UITableViewCell>(indexPath: NSIndexPath) -> T? {
+    // The generic type should actually be declared as follows: <T: UITableViewCell>.
+    // This caused the Swift compiler to confuse some classes though. Will add this later.
+    public func cellForRowAtIndexPath<T>(indexPath: NSIndexPath) -> T? {
         return cellForRowAtIndexPath(indexPath) as? T
     }
     
-    public func headerViewForSection<T: UITableViewHeaderFooterView>(section: Int) -> T? {
+    public func headerViewForSection<T>(section: Int) -> T? {
         return headerViewForSection(section) as? T
     }
 
-    public func footerViewForSection<T: UITableViewHeaderFooterView>(section: Int) -> T? {
+    public func footerViewForSection<T>(section: Int) -> T? {
         return footerViewForSection(section) as? T
     }
 
@@ -43,7 +45,7 @@ extension UITableView {
     public func dequeueReusableCell<T: UITableViewCell>(type: T.Type, indexPath: NSIndexPath) -> T {
         let reuseIdentifier = NSStringFromClass(type)
         let cell = dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as? T
-        return cell ?? T(style: .Default, reuseIdentifier: NSStringFromClass(type))
+        return cell ?? T(style: .Default, reuseIdentifier: reuseIdentifier)
     }
     
     public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(type: T.Type) -> T? {
