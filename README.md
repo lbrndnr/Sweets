@@ -26,11 +26,6 @@ let cell: OtherCell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, in
 
 ## Installation
 
-### CocoaPods
-```ruby
-pod "Sweets", "~> 0.0.1"
-```
-
 ###Carthage
 ```objc
 github "larcus94/Sweets" ~> 0.0.1
