@@ -38,18 +38,18 @@ extension UITableView {
     
     // MARK: - Dequeuing
     
-    public func dequeueReusableCell<T: UITableViewCell>(type: T.Type) -> T? {
-        return dequeueReusableCellWithIdentifier(NSStringFromClass(type)) as? T
+    public func dequeueReusableCell<T: UITableViewCell>(cellClass: T.Type) -> T? {
+        return dequeueReusableCellWithIdentifier(NSStringFromClass(cellClass)) as? T
     }
     
-    public func dequeueReusableCell<T: UITableViewCell>(type: T.Type, indexPath: NSIndexPath) -> T {
-        let reuseIdentifier = NSStringFromClass(type)
+    public func dequeueReusableCell<T: UITableViewCell>(cellClass: T.Type, indexPath: NSIndexPath) -> T {
+        let reuseIdentifier = NSStringFromClass(cellClass)
         let cell = dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as? T
         return cell ?? T(style: .Default, reuseIdentifier: reuseIdentifier)
     }
     
-    public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(type: T.Type) -> T? {
-        return dequeueReusableHeaderFooterViewWithIdentifier(NSStringFromClass(type)) as? T
+    public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(viewClass: T.Type) -> T? {
+        return dequeueReusableHeaderFooterViewWithIdentifier(NSStringFromClass(viewClass)) as? T
     }
     
 }

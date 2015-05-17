@@ -1,5 +1,5 @@
 //
-//  TableViewTests.swift
+//  UITableViewSpec.swift
 //  Sweets
 //
 //  Created by Laurin Brandner on 07/05/15.
@@ -11,7 +11,7 @@ import UIKit
 import Quick
 import Nimble
 
-class TableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
+class UITableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
     
     class RegisteredCell: UITableViewCell {}
     class Cell: UITableViewCell {
@@ -27,7 +27,7 @@ class TableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
     
     
     override func spec() {
-        var superview: UIView!
+        var window: UIWindow!
         var tableView: UITableView!
         var count = 1
         
@@ -38,9 +38,9 @@ class TableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
             tableView.registerReusableCellClass(RegisteredCell.self)
             tableView.registerReusableHeaderFooterViewClass(RegisteredHeaderFooterView.self)
             
-            superview = UIView(frame: UIScreen.mainScreen().bounds)
-            superview.addSubview(tableView)
-            tableView.frame = superview.bounds
+            window = UIWindow(frame: UIScreen.mainScreen().bounds)
+            window.addSubview(tableView)
+            tableView.frame = window.bounds
             tableView.reloadData()
         }
         
