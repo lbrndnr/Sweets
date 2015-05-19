@@ -11,30 +11,20 @@ import UIKit
 import Quick
 import Nimble
 
-class UITableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
+class UITableViewSpec: QuickSpec, UITableViewDataSource {
     
     class RegisteredCell: UITableViewCell {}
-    class Cell: UITableViewCell {
-    
-        func coolPrint() {
-            println("cool")
-        }
-        
-    }
-    
+    class Cell: UITableViewCell {}
     class RegisteredHeaderFooterView: UITableViewHeaderFooterView {}
     class HeaderFooterView: UITableViewHeaderFooterView {}
-    
     
     override func spec() {
         var window: UIWindow!
         var tableView: UITableView!
-        var count = 1
         
         beforeEach {
             tableView = UITableView()
             tableView.dataSource = self
-            tableView.delegate = self
             tableView.registerReusableCellClass(RegisteredCell.self)
             tableView.registerReusableHeaderFooterViewClass(RegisteredHeaderFooterView.self)
             
