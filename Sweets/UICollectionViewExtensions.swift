@@ -23,10 +23,6 @@ extension UICollectionView {
         return visibleCells().filter { $0 is T }.map { $0 as! T }
     }
     
-    public func indexPathsForVisibleItems<T>() -> [T] {
-        return indexPathsForVisibleItems().filter { $0 is T }.map { $0 as! T }
-    }
-    
     // MARK: - Registration
     
     public func registerReusableCellClass(cellClass: UICollectionViewCell.Type) {

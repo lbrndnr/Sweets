@@ -25,6 +25,10 @@ extension UITableView {
     public func footerViewForSection<T>(section: Int) -> T? {
         return footerViewForSection(section) as? T
     }
+    
+    public func visibleCells<T>() -> [T] {
+        return visibleCells().filter { $0 is T }.map { $0 as! T }
+    }
 
     // MARK: - Registration
     

@@ -56,6 +56,7 @@ class UITableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         
         describe("info retrieval") {
+            // These need to be in the same context so that the header retrieval passes
             it("retrieves views") {
                 let cell: RegisteredCell? = tableView.cellForRowAtIndexPath(indexPath)
                 expect(cell).to(beTruthy())
@@ -76,6 +77,16 @@ class UITableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
                 
                 let footerView: HeaderFooterView? = tableView.footerViewForSection(0)
                 expect(footerView).to(beFalsy())
+            }
+            
+            it("retrieves visible cells") {
+                let cells: [RegisteredCell] = tableView.visibleCells()
+                expect(cells).to(beTruthy())
+            }
+            
+            it("retrieves no visible cells") {
+                let cells: [Cell] = tableView.visibleCells()
+                expect(cells).to(beEmpty())
             }
         }
     }

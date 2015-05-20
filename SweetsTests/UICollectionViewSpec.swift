@@ -98,7 +98,7 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        return collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionHeader, forIndexPath: indexPath)
+        return collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: kind, forIndexPath: indexPath)
     }
 
 }
