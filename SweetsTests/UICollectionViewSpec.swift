@@ -11,7 +11,7 @@ import UIKit
 import Quick
 import Nimble
 
-class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource {
+class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     class RegisteredCell: UICollectionViewCell {}
     class Cell: UICollectionViewCell {}
@@ -21,20 +21,19 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource {
     
     override func spec() {
         var collectionView: UICollectionView!
-        var window: UIWindow!
         
         beforeEach {
             let layout = UICollectionViewFlowLayout()
-            layout.headerReferenceSize = CGSize(width: 100, height: 100)
+            layout.itemSize = CGSize(width: 100, height: 100)
+            layout.headerReferenceSize = layout.itemSize
+            layout.footerReferenceSize = layout.itemSize
             
-            collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: layout)
+            collectionView = UICollectionView(frame: UIScreen.mainScreen().bounds, collectionViewLayout: layout)
             collectionView.dataSource = self
+            collectionView.delegate = self
             collectionView.registerReusableCellClass(RegisteredCell.self)
             collectionView.registerReusableSupplementaryViewClass(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionHeader)
-            
-            window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            window.addSubview(collectionView)
-            collectionView.frame = window.bounds
+            collectionView.registerReusableSupplementaryViewClass(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionFooter)
             collectionView.reloadData()
         }
         
@@ -46,28 +45,28 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource {
                 expect(cell).to(beTruthy())
             }
             
-            it("dequeues a supplementary view") {
-                let view = collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionHeader, forIndexPath: indexPath)
-                expect(view).to(beTruthy())
-            }
-            
-            it("dequeues no supplementary view") {
-                let view = collectionView.dequeueReusableSupplementaryView(SupplementaryView.self, elementKind: UICollectionElementKindSectionHeader, forIndexPath: indexPath)
-                expect(view).to(beFalsy())
-            }
+//            it("dequeues a supplementary view") {
+//                let view = collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionHeader, forIndexPath: indexPath)
+//                expect(view).to(beTruthy())
+//            }
+//            
+//            it("dequeues no supplementary view") {
+//                let view = collectionView.dequeueReusableSupplementaryView(SupplementaryView.self, elementKind: UICollectionElementKindSectionHeader, forIndexPath: indexPath)
+//                expect(view).to(beFalsy())
+//            }
         }
         
-//        describe("info retrieval") {
-//            it("retrieves cell") {
-//                let cell: RegisteredCell? = collectionView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-//                expect(cell).to(beTruthy())
-//            }
-//            
-//            it("retrieves no cell") {
-//                let cell: Cell? = collectionView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-//                expect(cell).to(beFalsy())
-//            }
-//            
+        describe("info retrieval") {
+            it("retrieves cell") {
+                let cell: RegisteredCell? = collectionView.cellForItemAtIndexPath(indexPath)
+                expect(cell).to(beTruthy())
+            }
+            
+            it("retrieves no cell") {
+                let cell: Cell? = collectionView.cellForItemAtIndexPath(indexPath)
+                expect(cell).to(beFalsy())
+            }
+            
 //            it("retrieves header footer view") {
 //                let headerView: RegisteredHeaderFooterView? = collectionView.headerViewForSection(0)
 //                expect(headerView).to(beTruthy())
@@ -83,7 +82,7 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource {
 //                let footerView: HeaderFooterView? = collectionView.footerViewForSection(0)
 //                expect(footerView).to(beFalsy())
 //            }
-//        }
+        }
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {

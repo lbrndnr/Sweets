@@ -11,7 +11,7 @@ import UIKit
 import Quick
 import Nimble
 
-class UITableViewSpec: QuickSpec, UITableViewDataSource {
+class UITableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
     
     class RegisteredCell: UITableViewCell {}
     class Cell: UITableViewCell {}
@@ -19,18 +19,15 @@ class UITableViewSpec: QuickSpec, UITableViewDataSource {
     class HeaderFooterView: UITableViewHeaderFooterView {}
     
     override func spec() {
-        var window: UIWindow!
         var tableView: UITableView!
         
         beforeEach {
-            tableView = UITableView()
+            tableView = UITableView(frame: UIScreen.mainScreen().bounds)
             tableView.dataSource = self
+            tableView.delegate = self
             tableView.registerReusableCellClass(RegisteredCell.self)
             tableView.registerReusableHeaderFooterViewClass(RegisteredHeaderFooterView.self)
             
-            window = UIWindow(frame: UIScreen.mainScreen().bounds)
-            window.addSubview(tableView)
-            tableView.frame = window.bounds
             tableView.reloadData()
         }
         
@@ -56,18 +53,13 @@ class UITableViewSpec: QuickSpec, UITableViewDataSource {
             }
         }
         
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        
         describe("info retrieval") {
-            it("retrieves cell") {
-                let cell: RegisteredCell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+            it("retrieves views") {
+                let cell: RegisteredCell? = tableView.cellForRowAtIndexPath(indexPath)
                 expect(cell).to(beTruthy())
-            }
-            
-            it("retrieves no cell") {
-                let cell: Cell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-                expect(cell).to(beFalsy())
-            }
-            
-            it("retrieves header footer view") {
+                
                 let headerView: RegisteredHeaderFooterView? = tableView.headerViewForSection(0)
                 expect(headerView).to(beTruthy())
                 
@@ -75,7 +67,10 @@ class UITableViewSpec: QuickSpec, UITableViewDataSource {
                 expect(footerView).to(beTruthy())
             }
             
-            it("retrieves no header footer view") {
+            it("retrieves no views") {
+                let cell: Cell? = tableView.cellForRowAtIndexPath(indexPath)
+                expect(cell).to(beFalsy())
+                
                 let headerView: HeaderFooterView? = tableView.headerViewForSection(0)
                 expect(headerView).to(beFalsy())
                 
@@ -96,7 +91,7 @@ class UITableViewSpec: QuickSpec, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(RegisteredCell.self, indexPath: NSIndexPath(forRow: 0, inSection: 0))
+        return tableView.dequeueReusableCell(RegisteredCell.self, indexPath: indexPath)
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
