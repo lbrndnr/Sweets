@@ -33,21 +33,17 @@ class UITableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
         
         describe("dequeuing") {
             it("dequeues a cell") {
-                let cell = tableView.dequeueReusableCell(RegisteredCell.self)
-                expect(cell).to(beTruthy())
-            }
-            
-            it("dequeues no cell") {
+                let registeredCell = tableView.dequeueReusableCell(RegisteredCell.self)
+                expect(registeredCell).to(beTruthy())
+                
                 let cell = tableView.dequeueReusableCell(Cell.self)
                 expect(cell).to(beFalsy())
             }
             
             it("dequeues a header") {
-                let view = tableView.dequeueReusableHeaderFooterView(RegisteredHeaderFooterView.self)
-                expect(view).to(beTruthy())
-            }
-            
-            it("dequeues no header") {
+                let registeredView = tableView.dequeueReusableHeaderFooterView(RegisteredHeaderFooterView.self)
+                expect(registeredView).to(beTruthy())
+                
                 let view = tableView.dequeueReusableHeaderFooterView(HeaderFooterView.self)
                 expect(view).to(beFalsy())
             }
@@ -80,11 +76,9 @@ class UITableViewSpec: QuickSpec, UITableViewDataSource, UITableViewDelegate {
             }
             
             it("retrieves visible cells") {
-                let cells: [RegisteredCell] = tableView.visibleCells()
-                expect(cells).to(beTruthy())
-            }
-            
-            it("retrieves no visible cells") {
+                let registeredCells: [RegisteredCell] = tableView.visibleCells()
+                expect(registeredCells).to(beTruthy())
+                
                 let cells: [Cell] = tableView.visibleCells()
                 expect(cells).to(beEmpty())
             }
