@@ -28,12 +28,19 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource, UICollectionV
             layout.headerReferenceSize = layout.itemSize
             layout.footerReferenceSize = layout.itemSize
             
-            collectionView = UICollectionView(frame: UIScreen.mainScreen().bounds, collectionViewLayout: layout)
+            let controller = UICollectionViewController(collectionViewLayout: layout)
+            collectionView = controller.collectionView
+            
             collectionView.dataSource = self
             collectionView.delegate = self
             collectionView.registerReusableCellClass(RegisteredCell.self)
             collectionView.registerReusableSupplementaryViewClass(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionHeader)
             collectionView.registerReusableSupplementaryViewClass(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionFooter)
+            
+            if let window = UIApplication.sharedApplication().windows.first as? UIWindow {
+                window.rootViewController = controller
+            }
+            
             collectionView.reloadData()
         }
         
@@ -97,8 +104,8 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource, UICollectionV
         return collectionView.dequeueReusableCell(RegisteredCell.self, forIndexPath: indexPath)
     }
     
-    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        return collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: kind, forIndexPath: indexPath)
-    }
+//    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+//        return collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: kind, forIndexPath: indexPath)
+//    }
 
 }
