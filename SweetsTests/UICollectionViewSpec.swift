@@ -20,6 +20,7 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource, UICollectionV
     class SupplementaryView: UICollectionReusableView {}
     
     override func spec() {
+        let window = UIApplication.sharedApplication().windows.first as! UIWindow
         var collectionView: UICollectionView!
         
         beforeEach {
@@ -28,22 +29,22 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource, UICollectionV
             layout.headerReferenceSize = layout.itemSize
             layout.footerReferenceSize = layout.itemSize
             
-            let controller = UICollectionViewController(collectionViewLayout: layout)
-            collectionView = controller.collectionView
-            
+            collectionView = UICollectionView(frame: window.bounds, collectionViewLayout: layout)
             collectionView.dataSource = self
             collectionView.delegate = self
             collectionView.registerReusableCellClass(RegisteredCell.self)
             collectionView.registerReusableSupplementaryViewClass(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionHeader)
             collectionView.registerReusableSupplementaryViewClass(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionFooter)
             
-            if let window = UIApplication.sharedApplication().windows.first as? UIWindow {
-                window.rootViewController = controller
-            }
+            window.addSubview(collectionView)
             
-            collectionView.reloadData()
             collectionView.setNeedsLayout()
             collectionView.layoutIfNeeded()
+            collectionView.reloadData()
+        }
+        
+        afterEach {
+            collectionView.removeFromSuperview()
         }
         
         let indexPath = NSIndexPath(forItem: 0, inSection: 0)
@@ -54,15 +55,15 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource, UICollectionV
                 expect(cell).to(beTruthy())
             }
             
-//            it("dequeues a supplementary view") {
-//                let view = collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionHeader, forIndexPath: indexPath)
-//                expect(view).to(beTruthy())
-//            }
-//            
-//            it("dequeues no supplementary view") {
-//                let view = collectionView.dequeueReusableSupplementaryView(SupplementaryView.self, elementKind: UICollectionElementKindSectionHeader, forIndexPath: indexPath)
-//                expect(view).to(beFalsy())
-//            }
+            it("dequeues a supplementary view") {
+                let view = collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: UICollectionElementKindSectionHeader, forIndexPath: indexPath)
+                expect(view).to(beTruthy())
+            }
+            
+            it("dequeues no supplementary view") {
+                let view = collectionView.dequeueReusableSupplementaryView(SupplementaryView.self, elementKind: UICollectionElementKindSectionHeader, forIndexPath: indexPath)
+                expect(view).to(beFalsy())
+            }
         }
         
         describe("info retrieval") {
@@ -106,8 +107,8 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource, UICollectionV
         return collectionView.dequeueReusableCell(RegisteredCell.self, forIndexPath: indexPath)
     }
     
-//    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-//        return collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: kind, forIndexPath: indexPath)
-//    }
+    func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        return collectionView.dequeueReusableSupplementaryView(RegisteredSupplementaryView.self, elementKind: kind, forIndexPath: indexPath)
+    }
 
 }

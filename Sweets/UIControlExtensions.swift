@@ -12,7 +12,12 @@ import ObjectiveC
 private let actionsKey = "actions"
 private let selector: Selector = "fire:"
 
-extension UIControl {
+// This protocol is needed because Self can only be used in a protocol or as a return value
+protocol UIControlGenericProtocol {
+    func addAction(forControlEvents controlEvents: UIControlEvents, function: (Self) -> ())
+}
+
+extension UIControl: UIControlGenericProtocol {
     
     private var actions: Set<Action> {
         get {
@@ -23,16 +28,12 @@ extension UIControl {
         }
     }
     
-    public func addAction(forControlEvents controlEvents: UIControlEvents, function: (UIControl) -> ()) {
-        let action = Action(function, controlEvents: controlEvents)
+    public func addAction<T: UIControl>(forControlEvents controlEvents: UIControlEvents, function: (T) -> ()) {
+        let action = Action(function as! (UIControl) -> (), controlEvents: controlEvents)
         if !actions.contains(action) {
             actions.insert(action)
             addTarget(action, action: selector, forControlEvents: controlEvents)
         }
-    }
-    
-    public func removeAction(function: (UIControl) -> (), forControlEvents controlEvents: UIControlEvents) {
-
     }
     
 }
