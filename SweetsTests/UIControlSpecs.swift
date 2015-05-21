@@ -15,32 +15,32 @@ class UIControlSpecs: QuickSpec {
     
     override func spec() {
         var control: UIControl!
+        var invoked: Bool!
         
         beforeEach {
+            func action(sender: UIControl) {
+                invoked = true
+                expect(sender).to(equal(control))
+            }
+            
             control = UIControl()
+            control.setAction(action, forControlEvents: .TouchUpInside)
+            
+            invoked = false
         }
 
         describe("actions") {
-            it("should invoke actions") {
-                var invokedA = false
-                
-                func setInvokedA(sender: UIControl) {
-                    invokedA = true
-                    expect(sender).to(equal(control))
-                }
-                
-                control.addAction(forControlEvents: .TouchUpInside, function: setInvokedA)
-                
-                var invokedB = false
-                control.addAction(forControlEvents: .TouchUpInside) { sender in
-                    invokedB = true
-                    expect(sender).to(equal(control))
-                }
-                
+            it("invokes an action") {
                 control.sendActionsForControlEvents(.TouchUpInside)
                 
-                expect(invokedA).to(beTrue())
-                expect(invokedB).to(beTrue())
+                expect(invoked).to(beTrue())
+            }
+            
+            it("invokes no action") {
+                control.removeAction(forControlEvents: .TouchUpInside)
+                control.sendActionsForControlEvents(.TouchUpInside)
+                
+                expect(invoked).to(beFalse())
             }
         }
     }

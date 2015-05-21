@@ -12,28 +12,27 @@ import ObjectiveC
 private let actionsKey = "actions"
 private let selector: Selector = "fire:"
 
-// This protocol is needed because Self can only be used in a protocol or as a return value
-protocol UIControlGenericProtocol {
-    func addAction(forControlEvents controlEvents: UIControlEvents, function: (Self) -> ())
-}
-
-extension UIControl: UIControlGenericProtocol {
+extension UIControl {
     
-    private var actions: Set<Action> {
+    private var actions: [UInt: Action] {
         get {
-            return objc_getAssociatedObject(self, actionsKey) as? Set<Action> ?? []
+            return objc_getAssociatedObject(self, actionsKey) as? [UInt: Action] ?? [:]
         }
         set(value) {
             objc_setAssociatedObject(self, actionsKey, value, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
-    public func addAction<T: UIControl>(forControlEvents controlEvents: UIControlEvents, function: (T) -> ()) {
-        let action = Action(function as! (UIControl) -> (), controlEvents: controlEvents)
-        if !actions.contains(action) {
-            actions.insert(action)
-            addTarget(action, action: selector, forControlEvents: controlEvents)
-        }
+    public func setAction(function: (UIControl) -> (), forControlEvents controlEvents: UIControlEvents) {
+        let action = Action(function, controlEvents: controlEvents)
+        
+        actions[controlEvents.rawValue] = action
+        addTarget(action, action: selector, forControlEvents: controlEvents)
+    }
+    
+    public func removeAction(forControlEvents controlEvents: UIControlEvents) {
+        let action = actions.removeValueForKey(controlEvents.rawValue)
+        removeTarget(action, action: selector, forControlEvents: controlEvents)
     }
     
 }
