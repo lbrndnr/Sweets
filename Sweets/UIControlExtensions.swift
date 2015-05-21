@@ -10,15 +10,13 @@ import UIKit
 import ObjectiveC
 
 private let actionsKey = "actions"
+private let selector: Selector = "fire:"
 
 extension UIControl {
     
-    private var actions: [Action] {
+    private var actions: Set<Action> {
         get {
-            if let actions = objc_getAssociatedObject(self, actionsKey) as? [Action] {
-                return actions
-            }
-            return []
+            return objc_getAssociatedObject(self, actionsKey) as? Set<Action> ?? []
         }
         set(value) {
             objc_setAssociatedObject(self, actionsKey, value, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
@@ -26,9 +24,15 @@ extension UIControl {
     }
     
     public func addAction(forControlEvents controlEvents: UIControlEvents, function: (UIControl) -> ()) {
-        let action = Action(function)
-        actions.append(action)
-        addTarget(action, action: "fire:", forControlEvents: controlEvents)
+        let action = Action(function, controlEvents: controlEvents)
+        if !actions.contains(action) {
+            actions.insert(action)
+            addTarget(action, action: selector, forControlEvents: controlEvents)
+        }
+    }
+    
+    public func removeAction(function: (UIControl) -> (), forControlEvents controlEvents: UIControlEvents) {
+
     }
     
 }

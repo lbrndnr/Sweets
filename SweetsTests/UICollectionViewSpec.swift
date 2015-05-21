@@ -42,6 +42,8 @@ class UICollectionViewSpec: QuickSpec, UICollectionViewDataSource, UICollectionV
             }
             
             collectionView.reloadData()
+            collectionView.setNeedsLayout()
+            collectionView.layoutIfNeeded()
         }
         
         let indexPath = NSIndexPath(forItem: 0, inSection: 0)

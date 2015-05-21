@@ -10,9 +10,11 @@ import Foundation
 
 class Action: NSObject {
     let function: UIControl -> ()
+    let controlEvents: UIControlEvents
     
-    init(_ function: UIControl -> ()) {
+    init(_ function: UIControl -> (), controlEvents: UIControlEvents) {
         self.function = function
+        self.controlEvents = controlEvents
     }
     
     func fire(sender: UIControl) {
