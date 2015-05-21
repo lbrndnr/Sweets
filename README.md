@@ -13,7 +13,21 @@ I'm Laurin Brandner, I'm on [Twitter](https://twitter.com/larcus94).
 
 ## Example
 
-Sweets makes `UITableView` more aware of the classes that have been registered as cells. 
+### UIControl
+```swift
+func action(sender: UIControl) {
+	println("by \(sender)")
+}
+control.setAction(action, forControlEvents: .TouchUpInside)
+control.setAction(action, forControlEvents: .TouchUpOutside)
+
+control.setAction({ sender in
+	println("Hello")
+}, forControlEvents: .TouchDown)
+
+``` 
+
+### UITableView
 ```swift
 tableView.registerReusableCellClass(Cell.self)
 
@@ -22,7 +36,7 @@ let otherCell = tableView.dequeueReusableCell(OtherCell.self) // returns nil
 
 let cell: Cell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) // returns a Cell instance
 let cell: OtherCell? = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) // returns nil
-```
+``` 
 
 ## Installation
 
